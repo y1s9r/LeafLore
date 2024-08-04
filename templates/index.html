@@ -5,11 +5,46 @@
 {% endblock %}
 
 {% block body %}
-    <form action="/" method="POST">
-        <h1>Which parts of the plant do you intend to upload images of?</h1>
-        {% for parameter in parameters %}
-        <input type="checkbox" name="organs" value="{{ parameter }}">{{ parameter }}
-        {% endfor %}
-        <button type="submit">Identify Plant</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 20px;">Hey there!</h1>
+        </div>
+
+        <div class="row justify-content-center rounded" style="background-color: #39b549; padding-top: 5px;">
+            <form action="/" method="POST" class="bg-off-white text-center" style="padding: 20px;">
+                <h2 style="font-weight: bold; color: #2b3035; text-align: center;">Which parts of the plant do you intend to upload images of?</h2>
+
+                    <div class="container-fluid">
+                        <div class="form-check form-switch">
+                        <div class="row justify-content-center" style="padding-left: 107px; padding-top: 5px;">
+                            {% for parameter in parameters %}
+                            <div class="col-md-2" style="text-align: left;">
+                                <input class="form-check-input" id="flexSwitchCheckDefault" type="checkbox" name="organs" value="{{ parameter }}">
+                                <label class="form-check-label text-capitalize" for="flexSwitchCheckDefault" style="font-weight: bold; color: #2b3035;">{{ parameter }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-primary mt-3" style="background-color: #2b3035; color: #d9d9d9; font-weight: bold;">Identify Plant</button>
+                </div>
+            </form>
+        </div>
+            <div class="row justify-content-center" style="padding-top: 25px; padding-bottom: 30px;">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" style="border-radius: 15px; overflow: hidden;">
+                    <div class="carousel-item active">
+                        <img src="static/1.jpg" class="d-block w-100" alt="Plants">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/2.jpg" class="d-block w-100" alt="Plants">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/3.jpg" class="d-block w-100" alt="Plants">
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 {% endblock %}
