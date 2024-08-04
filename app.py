@@ -8,7 +8,7 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 API_KEY = "2b10Ksx2Ra5U4SpfpssAjBl2O"
-site_url = 'https://my-api.plantnet.org/v2/identify/all'
+site_url = 'https://my-api.plantnet.org/v2/identify/all?include-related-images=true&no-reject=false&nb-results=1&lang=en&type=kt'
 headers = {
     'Authorization': f'Bearer {API_KEY}'
 }
@@ -17,7 +17,7 @@ data = {
     'organs': []
 }
 
-parameters = ["leaf", "flower", "fruit", "bark", "stem", "root", "seed", "entire plant", "other"]
+parameters = ["leaf", "flower", "fruit", "bark", "other"]
 
 @app.route("/", methods=["GET", "POST"])
 def main():

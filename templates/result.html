@@ -9,30 +9,31 @@
 
     <h2>Results:</h2>
     <ul>
-        {% if result and 'results' in result %}
-            {% for item in result['results'] %}
-                <li>
-                    <strong>Scientific Name:</strong> {{ item['species']['scientificName'] }}<br>
-                    <strong>Common Name:</strong> {{ item['species']['commonName'] }}<br>
-                    <strong>Family:</strong> {{ item['species']['family'] }}<br>
-                    <strong>Genus:</strong> {{ item['species']['genus'] }}<br>
-                    <strong>Probability:</strong> {{ item['probability'] }}<br>
+        {% if 'results' in result and result['results'] %}
+        {% for res in result['results'] %}
+            <li>
+                <strong>Scientific Name:</strong> {{ res['species']['scientificName'] }}<br>
+                <strong>Common Names:</strong> {{ res['species']['commonNames']|join(', ') }}<br>
+                <strong>Family:</strong> {{ res['species']['family']['scientificName'] }}<br>
+                <strong>Genus:</strong> {{ res['species']['genus']['scientificName'] }}<br>
+                <strong>Probability:</strong> {{ res['score'] }}<br>
 
-                    {% if 'images' in item %}
-                        <h3>Related Images:</h3>
-                        <ul>
-                            {% for image in item['images'] %}
-                                <li>
-                                    <img src="{{ image['url'] }}" alt="Related Image" style="width: 200px; height: auto;"><br>
-                                    <strong>Source:</strong> {{ image['source'] }}<br>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        {% else %}
-            <p>No results found.</p>
-        {% endif %}
+                {% if 'images' in res %}
+                    <h3>Related Images:</h3>
+                    <ul>
+                        {% for image in res['images'] %}
+                            <li>
+                                <img src="{{ image['url']['m'] }}" alt="Related Image" style="width: 200px; height: auto;"><br>
+                                <strong>Source:</strong> {{ image['citation'] }}<br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
     </ul>
 {% endblock %}
