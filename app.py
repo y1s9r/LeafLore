@@ -38,7 +38,7 @@ def upload():
         for organ in data['organs']:
             image = request.files.get(organ)
             if not image or image.filename == "":
-                return f"Invalid file selected for {organ}", 400
+                return render_template("error.html", errorcode="400", message="Invalid file selected")
             if image and image.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
                 file_path = os.path.join(UPLOAD_FOLDER, image.filename)
                 image.save(file_path)
@@ -46,7 +46,7 @@ def upload():
                 # Add file to files list
                 files.append(('images', (file_path, open(file_path, 'rb'))))
             else:
-                return f"Invalid filetype selected for {organ}", 400
+                return render_template("error.html", errorcode="400", message="Invalid filetype selected")
         
         # Store files temporarily in a session or pass them directly to the result route
         return redirect("/result")  # Direct to result handling
@@ -63,8 +63,10 @@ def result():
     if response.status_code == 200:
         result = response.json()
         return render_template("result.html", result=result)
+    elif response.status_code == 404:
+        return render_template("error.html", errorcode=response.status_code, message="Plant Species not found!")
     else:
-        return f"API request failed with status code {response.status_code}", 500
+        return render_template("error.html", errorcode=response.status_code, message="API request failed!")
 
 
 if __name__ == "__main__":

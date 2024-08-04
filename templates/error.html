@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Error {{ errorcode }}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 20px; text-align: center;">Error {{ errorcode }}: {{message}}!</h1>
+    </div>
+    <div class="row justify-content-center rounded" style="padding-top: 25px; padding-bottom: 30px;">
+        <div class="rounded" style="overflow: hidden; border-radius: 15px;">
+            <img src="static/error.jpg" class="img-fluid" style="border-radius: 15px;">
+        </div>
+    </div>
+</div>
+{% endblock %}
