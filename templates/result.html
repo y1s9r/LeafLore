@@ -5,35 +5,52 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Upload Successful</h1>
-
-    <h2>Results:</h2>
-    <ul>
-        {% if 'results' in result and result['results'] %}
-        {% for res in result['results'] %}
-            <li>
-                <strong>Scientific Name:</strong> {{ res['species']['scientificName'] }}<br>
-                <strong>Common Names:</strong> {{ res['species']['commonNames']|join(', ') }}<br>
-                <strong>Family:</strong> {{ res['species']['family']['scientificName'] }}<br>
-                <strong>Genus:</strong> {{ res['species']['genus']['scientificName'] }}<br>
-                <strong>Probability:</strong> {{ res['score'] }}<br>
-
-                {% if 'images' in res %}
-                    <h3>Related Images:</h3>
-                    <ul>
-                        {% for image in res['images'] %}
-                            <li>
-                                <img src="{{ image['url']['m'] }}" alt="Related Image" style="width: 200px; height: auto;"><br>
-                                <strong>Source:</strong> {{ image['citation'] }}<br>
-                            </li>
+    {% if 'results' in result and result['results'] %}
+    <div class="container">
+        <div class="row">
+            <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 10px; text-align: center;">Result: {{ result['bestMatch'] }}</h1>
+        </div>
+        <div class="row" style="padding-top: 15px;">
+            <div class="col-6 offset-1 justify-content-evenly rounded" style="background-color: #39b549; padding-top: 10px;">
+                {% for res in result['results'] %}
+                <ul style="color: #2b3035;">
+                    <li><strong>Scientific Name:</strong> {{ res['species']['scientificName'] }}</li>
+                    <li><strong>Common Names:</strong> {{ res['species']['commonNames']|join(', ') }}</li>
+                    <li><strong>Family:</strong> {{ res['species']['family']['scientificName'] }}<br></li>
+                    <li><strong>Genus:</strong> {{ res['species']['genus']['scientificName'] }}<br></li>
+                    <li><strong>Probability:</strong> {{ (res['score'] * 100) | round(2) }}%<br></li>
+                </ul>
+                {% endfor %}
+            </div>
+            <div class="col-4 justify-content-evenly">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" style="border-radius: 15px; overflow: hidden;">
+                        {% for res in result['results'] %}
+                            {% for image in res['images'] %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ image['url']['m'] }}" class="d-block w-100" alt="Related Image">
+                                </div>
+                            {% endfor %}
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No results found.</p>
-{% endif %}
-    </ul>
-{% endblock %}
+                    </div>
+                    <!-- Carousel controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 10px; text-align: center;">No Results Found!</h1>
+            </div>
+        </div>
+    {% endif %}
+    {% endblock %}

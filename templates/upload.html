@@ -5,10 +5,43 @@
 {% endblock %}
 
 {% block body %}
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        {% for part in parts %}
-        <p>Upload Image of {{ part }}: <input required type="file" name="{{ part }}" accept="image/*"></p>
-        {% endfor %}
-        <input type="submit" value="Upload">
-    </form>
+    <div class="container">
+        <div class="row">
+            <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 20px; text-align: center;">Upload the Pictures</h1>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 justify-content-center rounded" style="background-color: #39b549; padding-top: 10px; padding-bottom: 10px;"> 
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                {% for part in parts %}
+                <div class="mb-3">
+                    <label for="formFile" class="form-label" style="color: #2b3035; font-weight: bold;">Image of the {{ part }}:</label>
+                    <input class="form-control" type="file" id="formFile" required name="{{ part }}" accept="image/*" style="background-color: #d9d9d9; border-color: black;">
+                </div>
+                {% endfor %}
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-primary mt-3" style="background-color: #2b3035; color: #d9d9d9; font-weight: bold;">Identify Plant</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="padding-top: 25px; padding-bottom: 30px;">
+        <div class="col-11 justify-content-center">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" style="border-radius: 15px; overflow: hidden;">
+            <div class="carousel-item active">
+                <img src="static/1.jpg" class="d-block w-100" alt="Plants">
+            </div>
+            <div class="carousel-item">
+                <img src="static/2.jpg" class="d-block w-100" alt="Plants">
+            </div>
+            <div class="carousel-item">
+                <img src="static/3.jpg" class="d-block w-100" alt="Plants">
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+    </div>
 {% endblock %}

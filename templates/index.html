@@ -7,16 +7,17 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 20px;">Hey there!</h1>
+            <h1 style="color: #2b3035; font-weight: bold; padding-top: 20px; padding-bottom: 10px;">Hey there!</h1>
         </div>
 
-        <div class="row justify-content-center rounded" style="background-color: #39b549; padding-top: 5px;">
+        <div class="row">
+            <div class="col-10 offset-1 justify-content-center rounded" style="background-color: #39b549; padding-bottom: 10px;">
             <form action="/" method="POST" class="bg-off-white text-center" style="padding: 20px;">
                 <h2 style="font-weight: bold; color: #2b3035; text-align: center;">Which parts of the plant do you intend to upload images of?</h2>
 
                     <div class="container-fluid">
                         <div class="form-check form-switch">
-                        <div class="row justify-content-center" style="padding-left: 107px; padding-top: 5px;">
+                        <div class="row justify-content-center" style="padding-left: 73px; padding-top: 5px;">
                             {% for parameter in parameters %}
                             <div class="col-md-2" style="text-align: left;">
                                 <input class="form-check-input" id="flexSwitchCheckDefault" type="checkbox" name="organs" value="{{ parameter }}">
@@ -30,6 +31,7 @@
                     <button type="submit" class="btn btn-primary mt-3" style="background-color: #2b3035; color: #d9d9d9; font-weight: bold;">Identify Plant</button>
                 </div>
             </form>
+        </div>
         </div>
             <div class="row justify-content-center" style="padding-top: 25px; padding-bottom: 30px;">
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -46,5 +48,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 {% endblock %}
