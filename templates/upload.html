@@ -6,7 +6,9 @@
 
 {% block body %}
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <p>Upload Image: <input required type="file" name="plant" accept="image/*"></p>
+        {% for part in parts %}
+        <p>Upload Image of {{ part }}: <input required type="file" name="{{ part }}" accept="image/*"></p>
+        {% endfor %}
         <input type="submit" value="Upload">
     </form>
 {% endblock %}

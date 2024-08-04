@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <form action="/upload" method="GET">
+    <form action="/" method="POST">
+        <h1>Which parts of the plant do you intend to upload images of?</h1>
+        {% for parameter in parameters %}
+        <input type="checkbox" name="organs" value="{{ parameter }}">{{ parameter }}
+        {% endfor %}
         <button type="submit">Identify Plant</button>
     </form>
 {% endblock %}

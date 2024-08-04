@@ -6,4 +6,13 @@
 
 {% block body %}
     <h1>Uploaded</h1>
+    <h2> Files: </h2>
+    {% for file in files %}
+    {{ file }}
+    {% endfor %}
+    
+    <h2> Organs: </h2>
+    {% for organ in organs%}
+    {{ organ }}
+    {% endfor %}
 {% endblock %}
