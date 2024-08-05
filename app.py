@@ -17,7 +17,7 @@ data = {
     'organs': []
 }
 
-parameters = ["leaf", "flower", "fruit", "bark", "other"]
+parameters = ["leaf", "flower", "fruit", "bark"]
 
 @app.route("/", methods=["GET", "POST"])
 def main():
@@ -32,7 +32,7 @@ def main():
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
-    global files  # Declare files as global to modify it
+    global files
     if request.method == "POST":
         files = []
         for organ in data['organs']:
@@ -42,23 +42,17 @@ def upload():
             if image and image.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
                 file_path = os.path.join(UPLOAD_FOLDER, image.filename)
                 image.save(file_path)
-                
-                # Add file to files list
                 files.append(('images', (file_path, open(file_path, 'rb'))))
             else:
                 return render_template("error.html", errorcode="400", message="Invalid filetype selected")
-        
-        # Store files temporarily in a session or pass them directly to the result route
-        return redirect("/result")  # Direct to result handling
+
+        return redirect("/result")
         
     parts = data['organs']
     return render_template("upload.html", parts=parts)
 
 @app.route("/result", methods=["GET"])
 def result():
-    # Read files again from storage or pass them directly
-    print(data)
-    print(files)
     response = requests.post(site_url, headers=headers, files=files, data=data)
     if response.status_code == 200:
         result = response.json()
